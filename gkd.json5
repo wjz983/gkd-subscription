@@ -1,16 +1,44 @@
 {
-  version: 1,
-  id: 'com.jinxin.namibox',
-  name: 'com.jinxin.namibox',
-  groups: [
+  // 订阅在 GKD 本地数据库里的主键。在线订阅导入后由 GKD 自行管理，这里给个负数占位即可。
+  id: -1,
+
+  name: "wjz983 的自定义规则",
+  version: 2, // ★ 每次改动内容必须 +1，否则 GKD 认为没有更新，不会重新拉取
+  author: "wjz983",
+
+  // GKD 检查更新时拉取的地址。国内用 Gitee 这条更稳（raw 会 302，GKD 每次请求自己跟跳转，没问题）。
+  updateUrl: "https://gitee.com/wj983/gkd-subscription/raw/master/gkd.json5",
+
+  // 备用：GitHub 那份内容完全一致，Gitee 挂了可以换成
+  // https://raw.githubusercontent.com/wjz983/gkd-subscription/main/gkd.json5
+  checkUpdateUrl: "./gkd.version.json5",
+
+  supportUri: "https://github.com/wjz983/gkd-subscription/issues",
+
+  // 全局规则组：不绑定具体 App，对所有 App 生效（典型用途：通用开屏广告）
+  globalGroups: [],
+
+  categories: [
+    { key: 1, name: "权限与弹窗" },
+    { key: 2, name: "广告" },
+  ],
+
+  apps: [
     {
-      key: 6,
-      name: '局部广告',
-      fastQuery: true,
-      rules: [
+      id: "com.jinxin.namibox", // 纳米BOX
+      name: "com.jinxin.namibox",
+      category: 2,
+      groups: [
         {
-          activityIds: 'com.android.settings.accessibility.MiuiAccessibilitySettingsActivity',
-          matches: '[vid*="close"]',
+          key: 6,
+          name: "局部广告",
+          fastQuery: true,
+          rules: [
+            {
+              activityIds: "com.android.settings.accessibility.MiuiAccessibilitySettingsActivity",
+              matches: "[vid*=\"close\"]",
+            },
+          ],
         },
       ],
     },

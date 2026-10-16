@@ -7,14 +7,22 @@
 
 ## 订阅链接
 
-GKD → 订阅 → 添加订阅，填：
+GKD → 订阅 → 添加订阅，填（**推荐 Gitee，国内更稳**）：
+
+```
+https://gitee.com/wj983/gkd-subscription/raw/master/gkd.json5
+```
+
+备用（内容完全一致）：
 
 ```
 https://raw.githubusercontent.com/wjz983/gkd-subscription/main/gkd.json5
 ```
 
-> ⚠️ 不要把 Gitee 的 raw 链接当订阅地址。Gitee 的 raw 会 302 跳到 `raw.giteeusercontent.com` 上带签名的**临时地址（约 50 分钟过期）**，GKD 定期检查更新时拿到的旧链接会失效。Gitee 这份只作备份和手工取用。
-> 国内网络取 GitHub raw 不稳定时，可临时改用 jsDelivr：`https://cdn.jsdelivr.net/gh/wjz983/gkd-subscription@main/gkd.json5`
+> Gitee 的 raw 会 302 跳到 `raw.giteeusercontent.com` 上带签名的临时地址（约 50 分钟过期）。
+> 这不影响 GKD —— 它每次检查更新都重新请求、自己跟跳转。只有当你**把跳转后的地址抄下来反复用**时才会失效，
+> 所以订阅地址永远填 `gitee.com/.../raw/...` 这一条，别填 `raw.giteeusercontent.com` 那条。
+> jsDelivr（`cdn.` / `fastly.`）实测都会再跳回 `raw.githubusercontent.com`，对国内访问没有加速作用。
 
 ## 文件
 
