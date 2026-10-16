@@ -2,8 +2,8 @@
 
 我自己的 [GKD](https://gkd.li) 订阅仓库。规则写在 [`gkd.json5`](./gkd.json5) 里，改完推上来、版本号 +1，手机上 GKD 就会拉到更新。
 
-- GitHub（主）：https://github.com/wjz983/gkd-subscription
-- Gitee（镜像备份）：https://gitee.com/wj983/gkd-subscription
+- Gitee（**主源**，订阅地址走这里）：https://gitee.com/wj983/gkd-subscription
+- GitHub（备份，内容一致）：https://github.com/wjz983/gkd-subscription
 
 ## 订阅链接
 
@@ -49,10 +49,24 @@ https://raw.githubusercontent.com/wjz983/gkd-subscription/main/gkd.json5
 
 解析失败 GKD 会直接报「订阅格式错误」，整份订阅不加载。
 
-## 同步到 Gitee
+## 怎么改这份订阅
+
+**手机上（日常用这个）**：装 `GkdUploader.apk`（本机在 `D:\gkd-uploader\out\`，不进仓库），
+填好 Gitee 用户名和私人令牌 → 编辑正文 → 点「上传（Gitee 主源）」。
+App 每次上传前会自动 GET 一次拿文件 `sha`（Gitee 更新接口的硬性要求），
+所以**不需要先手动点「拉取仓库当前内容」**；那个按钮只在你怀疑线上版本和本机草稿不一致时用。
+「另存 GitHub 备份」是可选的，不点也不影响订阅生效。
+
+**电脑上**：
 
 ```bash
-bash sync-gitee.sh "feat: 新增 xxx 规则"
+cd /d/gkd-rules/gkd-subscription
+# 改 gkd.json5 + 版本号，然后
+bash sync-gitee.sh "feat: 新增 xxx 规则"     # 推 Gitee（master + main）
+git push github main                          # 想留备份再推这条
 ```
 
-脚本把当前仓库内容推到 Gitee 镜像；凭据走 Windows 凭据管理器，命令行与 `.git/config` 里都不留明文令牌。
+凭据都走 Windows 凭据管理器，命令行与 `.git/config` 里不留明文令牌。
+
+> 只传一边就行，别双写。两边都传时一旦一边失败就会出现"线上两个版本"，
+> 订阅到底生效哪份都说不清。Gitee 是主源，GitHub 只是备份。
