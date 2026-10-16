@@ -1,0 +1,55 @@
+// GKD 订阅文件 —— 你自己的规则都加在 apps[] 里
+// 字段说明见 README.md；本文件必须能被 JSON5 解析器读通（允许注释、允许单引号、允许尾逗号）
+{
+  // 订阅在 GKD 本地数据库里的主键。在线订阅导入后由 GKD 自行管理，这里给个负数占位即可。
+  id: -1,
+
+  name: "wjz983 的自定义规则",
+  version: 1, // ★ 每次改动内容必须 +1，否则 GKD 认为没有更新，不会重新拉取
+  author: "wjz983",
+
+  // GKD 检查更新时真正拉取的地址（指向本文件的 raw 链接）
+  updateUrl: "https://raw.githubusercontent.com/wjz983/gkd-subscription/main/gkd.json5",
+
+  // 轻量版本探测地址：./ 表示和本订阅同目录，只拉几十字节的 gkd.version.json5 比对版本号
+  checkUpdateUrl: "./gkd.version.json5",
+
+  supportUri: "https://github.com/wjz983/gkd-subscription/issues",
+
+  // 全局规则组：不绑定具体 App，对所有 App 生效（典型用途：通用开屏广告）
+  globalGroups: [],
+
+  // 订阅在内部分组展示用的类目，apps[] 里用 category 字段引用 key
+  categories: [
+    { key: 1, name: "权限与弹窗" },
+    { key: 2, name: "广告" },
+  ],
+
+  apps: [
+    // ↓↓↓ ↓ 下面整段是**格式示例**，选择器未在你机器上实测；确认能用再留，用不上就删 ↓↓↓ ↓
+    {
+      id: "com.android.permissioncontroller", // 必须是 App 的包名
+      name: "权限弹窗",
+      category: 1,
+      groups: [
+        {
+          key: 1, // 同一个 App 内唯一，建议 1、2、3… 递增，不要改动已发布规则的 key
+          name: "安装未知应用-允许",
+          enable: true,
+          fastQuery: true,
+          matchTime: 10000,
+          actionMaximum: 1,
+          resetMatch: "app",
+          rules: [
+            {
+              name: "点击「允许」",
+              matches: "[text=\"允许\"]", // 外层多个 [] 是「或」，[..][..] 连写是「且」
+              action: "clickNode",
+            },
+          ],
+        },
+      ],
+    },
+    // ↑↑↑ ↑ 示例结束 ↑↑↑ ↑
+  ],
+}
